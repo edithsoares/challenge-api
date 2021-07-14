@@ -32,17 +32,12 @@ public class Wishlist {
     @OneToMany
     private List<Product> products;
 
-//    @CreationTimestamp
-//    @Column(updatable = false)
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss", timezone="GMT-3")
-//    private  date;
-
-    @Column
-    @NotNull
-    private long Quantity;
+    @CreationTimestamp
+    @Column(updatable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss", timezone="GMT-3")
+    private Date date;
 
     @NotNull
     @Column
     private BigDecimal totalPrice;
-
 }

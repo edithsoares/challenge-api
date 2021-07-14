@@ -3,6 +3,7 @@ package com.luizalabs.challenge.service;
 import com.luizalabs.challenge.model.entity.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 
@@ -14,6 +15,7 @@ public interface ProductService {
 
     void deleteProduct(Product product);
 
+    Optional<Product> findById(Long id);
 
     List<Product> filterProduct(Product productFilter);
 }

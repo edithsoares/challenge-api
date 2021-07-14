@@ -2,23 +2,16 @@ package com.luizalabs.challenge.service;
 
 import com.luizalabs.challenge.model.entity.Wishlist;
 
-import java.util.Optional;
 
 public interface WishlistService {
 
-    Wishlist createWishlist(Wishlist wishlist);
+    Wishlist saveWishlist(Wishlist wishlist);
 
-    Wishlist updateWishlist(Wishlist wishlist);
+    Wishlist findByIdWishlist(long id);
 
-    Wishlist findById(long id);
+    Wishlist findByUserEmail(String email);
 
-    Optional<Wishlist> getById(Long id);
+    void sumTotal(Wishlist wishlist);
 
-    void deleteWishlistId(long id);
-
-    Wishlist findByClientEmail(String email);
-
-    Wishlist getWishlistById(long idWishlist);
-
-    void delete(Wishlist wishlist);
+    void subTotal(Wishlist wishlist);
 }

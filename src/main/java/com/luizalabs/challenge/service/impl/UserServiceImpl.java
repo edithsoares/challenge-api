@@ -25,47 +25,46 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User auth(String email, String senha) {
-        Optional<User> usuario = repository.findByEmail(email);
+        Optional<User> user = repository.findByEmail(email);
 
-        if(!usuario.isPresent()) {
+        if(!user.isPresent()) {
             throw new ErrorsAuth("Usuário não encontrado para o email informado.");
         }
 
-        if(!usuario.get().getPassword().equals(senha)) {
+        if(!user.get().getPassword().equals(senha)) {
             throw new ErrorsAuth("Senha inválida.");
         }
 
-        return usuario.get();
+        return user.get();
     }
 
+    @Override
     public User createUser(User user){
-        Objects.requireNonNull(user.getId());
         validateEmail(user.getEmail());
         return repository.save(user);
     }
 
-    public User getByEmail(String email){
-        return repository.getByEmail(email);
-    }
-
+    @Override
     public User getById(long id){
         return repository.findById(id);
     }
 
+    @Override
+    public Optional<User> getById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
     public User updateUser(User user){
         Objects.requireNonNull(user);
         return repository.save(user);
     }
 
+    @Override
     public void deleteById(User user){
         repository.delete(user);
     }
 
-
-//    Implementar no Controller
-//    public List<User> listAllClient(){
-//        return repository.findAll();
-//    }
 
     @Override
     public void validateEmail(String email) {

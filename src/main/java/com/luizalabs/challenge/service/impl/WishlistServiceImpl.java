@@ -1,74 +1,55 @@
 package com.luizalabs.challenge.service.impl;
 
-import com.luizalabs.challenge.exceptions.BusinessRuleErrors;
 import com.luizalabs.challenge.model.entity.Product;
 import com.luizalabs.challenge.model.entity.Wishlist;
 import com.luizalabs.challenge.model.repository.WishlistRepository;
 import com.luizalabs.challenge.service.WishlistService;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+
 
 @Service
 public class WishlistServiceImpl implements WishlistService {
 
 
     @Autowired
-    WishlistRepository repository;
-//    private WishlistRepository repository;
-//
-//    public WishlistServiceImpl(WishlistRepository repository) {
-//        this.repository = repository;
-//    }
+    private WishlistRepository wishlistRepository;
 
-    public Wishlist createWishlist(Wishlist wishlist){
-        Objects.requireNonNull(wishlist);
-
-        return repository.save(wishlist);
+    public Wishlist saveWishlist(Wishlist wishlist) {
+        return wishlistRepository.save(wishlist);
     }
 
-    public Wishlist updateWishlist(Wishlist wishlist){
-        Objects.requireNonNull(wishlist);
-        return repository.save(wishlist);
-    }
-
-    @Override
-    public Wishlist findById(long id) {
-        return repository.findById(id);
-    }
-
-    @Override
-    public Optional<Wishlist> getById(Long id) {
-        return repository.findById(id);
-    }
-
-    public Wishlist getWishlistById(long id){
-        return repository.findById(id);
-    }
-
-    @Override
-    public void delete(Wishlist wishlist) {
-        Objects.requireNonNull(wishlist.getId());
-        repository.delete(wishlist);
-    }
-
-    public void deleteWishlistId(long id){
-        repository.deleteById(id);
-    }
-
-    @Override
-    public Wishlist findByClientEmail(String email) {
-        return null;
+    public Wishlist findByIdWishlist(long id) {
+        return wishlistRepository.findById(id);
     }
 
     public Wishlist findByUserEmail(String email) {
-        return repository.findByUserEmail(email);
+        return wishlistRepository.findByUserEmail(email);
     }
 
 
+    //    Subtrai o valor do produto removido
+    public void subTotal(Wishlist wishlist) {
+        BigDecimal total = BigDecimal.ZERO;
+        List<Product> listProduct = wishlist.getProducts();
+        for (Product product : listProduct) {
+            total = wishlist.getTotalPrice().subtract(product.getPrice());
+        }
+        wishlist.setTotalPrice(total);
+    }
 
+
+    // Subtrai o valor total dos produto adicionados na lista
+    public void sumTotal(Wishlist wishlist) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        List<Product> listProduct = wishlist.getProducts();
+        for (Product product : listProduct) {
+            totalPrice = totalPrice.add(product.getPrice(), new MathContext(5));
+        }
+        wishlist.setTotalPrice(totalPrice);
+    }
 }

@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @Entity
@@ -21,22 +20,16 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @NotBlank(message = "Title é obrigatório")
     @Column(name = "title")
     private String title;
 
 
-    //    @NotBlank(message = "Preço é obrigatório")
     @Column(name = "price")
     private BigDecimal price;
 
-//    @NotBlank(message = "Marca é obrigatório")
     @Column(name = "brand")
     private String brand;
 
     @Column(name = "reviewScore")
     private int reviewScore;
-
-//    image: URL da imagem do produto
-
 }

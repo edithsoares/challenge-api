@@ -3,6 +3,7 @@ package com.luizalabs.challenge.service;
 import com.luizalabs.challenge.model.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     User createUser(User user);
@@ -15,9 +16,10 @@ public interface UserService {
 
     void deleteById(User user);
 
-//    List<User> listAllClient();
-
     void validateEmail(String email);
+
+
+    Optional<User> getById(Long id);
 
 
 

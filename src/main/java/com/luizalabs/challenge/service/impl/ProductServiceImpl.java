@@ -1,6 +1,7 @@
 package com.luizalabs.challenge.service.impl;
 
 import com.luizalabs.challenge.model.entity.Product;
+import com.luizalabs.challenge.model.entity.Wishlist;
 import com.luizalabs.challenge.model.repository.ProductRepository;
 import com.luizalabs.challenge.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -28,7 +30,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Product updateProduct(Product product){
-        Objects.requireNonNull(product);
         return repository.save(product);
     }
 
@@ -36,6 +37,15 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Product product) {
         Objects.requireNonNull(product.getId());
         repository.delete(product);
+    }
+
+    @Override
+    public Optional<Product> findById(Long id) {
+        return repository.findById(id);
+    }
+
+    public List<Product> AllProduct(){
+        return repository.findAll();
     }
 
     @Override
@@ -51,5 +61,11 @@ public class ProductServiceImpl implements ProductService {
 
     public void deleteProduct(long id) {
         repository.deleteById(id);
+    }
+
+    public static void reviewScore(Product product) {
+        int total = 0;
+        total += 1;
+        product.setReviewScore(total);
     }
 }
