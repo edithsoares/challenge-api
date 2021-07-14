@@ -316,7 +316,7 @@ Esse projeto é uma API que representa um sistema de 'Lista de Favoritos'
 
 ## Contact
 
-Edith Soares - tainajmedeiros@gmail.com
+Edith Soares - edith.soaares@gmail.com
 
 LinkedIn: [in/edith-soares/](https://www.linkedin.com/in/edith-soares/)
 
